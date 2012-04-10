@@ -1,0 +1,1 @@
+This would be an implementation of Conway's Game of Life, an evolving computational state system or cellular automaton. The "game" allows the user to specify the board dimmensions and the initial state of the cells. Then, the game engine takes over and uses simple rules to evolve the game, sometimes creating really cool patterns.
