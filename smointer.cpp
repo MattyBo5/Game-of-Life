@@ -1,13 +1,17 @@
 /***************************************************************************************************
  File Name:
-  smointer.cpp
+	smointer.h
 
  Purpose:
-	Implementation file for smart pointers. Defines a class called Smointer that takes care of
-	reference counting for all MMObjects automatically. Templated for type safety.
+	Specification file for smart pointer class. Defines a class called Smointer (smart pointer) that
+	takes care of reference counting for all Gobjects automatically. Templated for type safety.
 
  Authors:
 	Igor Janjic
+
+ Version:
+	0.9
+	Not done: Pointer math operators (although I'm not sure if they are needed yet).
 ***************************************************************************************************/
 
 #include "smointer.h"
