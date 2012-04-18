@@ -1,6 +1,6 @@
 /***************************************************************************************************
  File Name:
-  smointer.h
+	smointer.h
 
  Purpose:
 	Specification file for smart pointer class. Defines a class called Smointer (smart pointer) that
@@ -8,6 +8,10 @@
 
  Authors:
 	Igor Janjic
+
+ Version:
+	0.9
+	Not done: Pointer math operators (although I'm not sure if they are needed yet).
 ***************************************************************************************************/
 
 /***************************************************************************************************
@@ -24,7 +28,7 @@
 	is to act as a wrapper for the pointer and includes most (except math) of the features regular
 	pointers do and extra ones such as NULL pointer exception assertion. Since a smointer must be
 	able to point to objects of all derived classes of gobjects, it is templated for type safety.
-	Part of the memory management system.
+	This class is part of the memory management system.
 
  Precondition:
 	T can only be a pointer to a gobject or any other object that inherits class Gobject (it must
