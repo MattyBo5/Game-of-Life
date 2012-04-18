@@ -1,6 +1,6 @@
 /***************************************************************************************************
  File Name:
-  gobject.h
+	gobject.h
 
  Purpose:
 	Specification file for an abstract, memory managed object base class. Defines a class called
@@ -27,12 +27,13 @@ using std::list;
 	such objects share two statically defined lists: a list of currently live objects and dead
 	objects as well as two statically defined methods for garbage collection. Each object created
 	contains a count of how many things are referencing it. When the object is not needed anymore
-	(nothing is referencing it), the object is added to the dead list. The programmer may choose to
-	flush the dead list periodically or implement a smart pointer (smointer) system in which this
-	list is flushed automatically. Along with flushing the dead list, another method is defined for
-	flushing the remaining objects still live. This method should only really be used at the end of
-	the programs execution as a deleting live object that still have references to them may cause
-	erratic run time errors. This class is part of the memory management system.
+	(nothing is referencing it), the object is added to the dead list. The dead list is flushed
+	periodically. The programmer may choose to manually add and release references from gobjects or
+	implement a smart pointer (smointer) system in which this is done automatically. Along with
+	flushing the dead list, another method is defined for flushing the remaining objects still live.
+	This method should only really be used at the end of the programs execution as a deleting live
+	object that still have references to them may cause erratic run time errors. This class is part
+	of the memory management system.
 ***************************************************************************************************/
 
 class Gobject
