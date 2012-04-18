@@ -30,7 +30,7 @@ Gobject::Gobject()
 	referenceCount = 0;
 }
 
-// Default destructor
+// Destructor
 Gobject::~Gobject() {}
 
 // Adds reference to gobject
