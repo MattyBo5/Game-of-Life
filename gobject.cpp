@@ -1,9 +1,9 @@
 /***************************************************************************************************
  File Name:
-  gobject.h
+	gobject.cpp
 
  Purpose:
-	Specification file for an abstract, memory managed object base class. Defines a class called
+	Implementation file for an abstract, memory managed object base class. Defines a class called
 	Gobject (game object) that will serve as the base class for all future objects that need to be
 	memory managed.
 
