@@ -1,12 +1,11 @@
 /***************************************************************************************************
  File Name:
-  singleton.h
+	singleton.h
 
  Purpose:
-	Specification and implementation file for a base class for limiting the instantiation of a
-	derived class to only one object. Useful when only one object is needed for the specific
-	application. Defines a class called Singleton to serve as a base class for future
-	single-instance derived classes.
+	Specification and implementation file for a class that limits the instantiation of another class
+	to only one object. Useful when only one object is needed for the specific application. Defines
+	a class called Singleton.
 
  Authors:
 	Igor Janjic
@@ -25,10 +24,9 @@
 	Singleton
 
  Description:
-	The class is a base class for limiting the instantiation of a derived class to only one object.
-	The programmer is responsible for creating the singleton and deleting it when they are finished
-	since it is not a memory managed (gobject) object. To destroy a singleton, simply call
-	delete aDerivedClass::getSingletonPtr(), where aDerivedClass has Singleton as its base class.
+	The class limits the instantiation of class to only one object. The programmer is responsible
+	for creating the singleton and deleting it when they are finished since it is not a memory
+	managed (gobject) object. To destroy a singleton, simply call delete aClass::getSingletonPtr().
 ***************************************************************************************************/
 
 template<class T>
