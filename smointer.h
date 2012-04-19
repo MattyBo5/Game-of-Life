@@ -3,16 +3,22 @@
 	smointer.h
 
  Purpose:
-	Specification file for smart pointer class. Defines a class called Smointer (smart pointer) that
-	takes care of reference counting for all Gobjects automatically. Templated for type safety.
+	Specification and implementation file for smart pointer class. Defines a class called Smointer
+	(smart pointer) that takes care of reference counting for all Gobjects automatically. Templated
+	for type safety.
 
  Authors:
 	Igor Janjic
 
  Version:
-	0.9
+	0.9 (4/19/12)
 	Not done: Pointer math operators (although I'm not sure if they are needed yet).
 ***************************************************************************************************/
+
+#ifndef SMOINTER_H
+#define SMOINTER_H
+
+#include <assert.h>
 
 /***************************************************************************************************
  Class:
@@ -39,7 +45,7 @@ template<class T>
 class Smointer
 {
 
-protected:
+private:
 
 	/* Pointer to a gobject (a gobject is any object that has Gobject as its base class). */
 	T* gobj;
@@ -64,8 +70,11 @@ public:
 	Smointer A;
 	</code>
 ***************************************************************************************************/
-
-	Smointer();
+	
+	Smointer()
+	{
+		gobj = 0;
+	}
 
 /***************************************************************************************************
  Method:
@@ -87,8 +96,12 @@ public:
 	Smointer B(&A);
 	</code>
 ***************************************************************************************************/
-
-	Smointer(T* aGobj);
+	
+	Smointer(T* aGobj)
+	{
+		gobj = 0;
+		*this = aGobj;
+	}
 
 /***************************************************************************************************
  Method:
@@ -112,7 +125,11 @@ public:
 	</code>
 ***************************************************************************************************/
 
-	Smointer(const Smointer<T> &aSmointer);
+	Smointer(const Smointer<T> &aSmointer)
+	{
+		gobj = 0;
+		*this = aSmointer;
+	}
 
 /***************************************************************************************************
  Method:
@@ -125,11 +142,15 @@ public:
 	The default destructor. If gobj points to a gobject, the reference is released.
 ***************************************************************************************************/
 
-	~Smointer();
+	~Smointer()
+	{
+		if(gobj)
+			gobj->releaseReference();
+	}
 
 /***************************************************************************************************
  Method:
-	inline Smointer<T>& operator =(T* aGobj)
+	inline void operator =(T* aGobj)
 
  Scope:
 	Public.
@@ -143,11 +164,18 @@ public:
 	1.	T* aGobj - The pointer to a gobject the smointer is being equated to.
 ***************************************************************************************************/
 
-	inline Smointer<T>& operator =(T* aGobj);
+	inline void operator =(T* aGobj)
+	{
+		if(gobj)
+			gobj->releaseReference();
+		gobj = aGobj;
+		if(gobj)
+			gobj->addReference();
+	}
 
 /***************************************************************************************************
  Method:
-	inline Smointer<T>& operator =(const Smointer<T> &aSmointer)
+	inline void operator =(const Smointer<T> &aSmointer)
 
  Scope:
 	Public.
@@ -161,7 +189,14 @@ public:
 		smointer.
 ***************************************************************************************************/
 
-	inline Smointer<T>& operator =(const Smointer<T> &aSmointer);
+	inline void operator =(const Smointer<T> &aSmointer)
+	{
+		if(gobj)
+			gobj->releaseReference();
+		gobj = aSmointer.gobj;
+		if(gobj)
+			gobj->addReference();
+	}
 
 /***************************************************************************************************
  Method:
@@ -178,7 +213,11 @@ public:
 	None.
 ***************************************************************************************************/
 
-	inline T& operator *() const;
+	inline T& operator*() const
+	{
+		assert((gobj != 0) && "Tried to * on a NULL smointer.");
+		return *gobj;
+	}
 
 /***************************************************************************************************
  Method:
@@ -195,23 +234,30 @@ public:
 	None.
 ***************************************************************************************************/
 
-	inline T* operator ->() const;
+	inline T* operator ->() const
+	{
+		assert((gobj != 0) && "Tried to -> on a NULL smointer.");
+		return gobj;
+	}
 
 /***************************************************************************************************
  Method:
-	inline T& operator T*() const
+	inline T* operator T*() const
 
  Scope:
 	Public.
 
  Description:
-	Overloads T* operator for easily converting smointer back to a regular gobject pointer. 
+	Overloads conversion operator for easily converting smointer back to a regular gobject pointer. 
 
  Parameters:
 	None.
 ***************************************************************************************************/
 
-	inline operator T*() const;
+	inline operator T*() const
+	{
+		return gobj;
+	}
 
 /***************************************************************************************************
  Method:
@@ -227,7 +273,10 @@ public:
 	None.
 ***************************************************************************************************/
 
-	inline bool operator !();
+	inline bool operator !()
+	{
+		return !(gobj);
+	}
 
 /***************************************************************************************************
  Method:
@@ -243,7 +292,10 @@ public:
 	1.	const T* aGobj - The regular pointer that will be compared to the calling smointer's gobj.
 ***************************************************************************************************/
 
-	inline bool operator ==(const T* aGobj) const;
+	inline bool operator ==(const T* aGobj) const
+	{
+		return (gobj == aGobj);
+	}
 
 /***************************************************************************************************
  Method:
@@ -261,7 +313,10 @@ public:
 		the calling smointer's gobj for equality.
 ***************************************************************************************************/
 
-	inline bool operator ==(const Smointer<T> &aSmointer) const;
+	inline bool operator ==(const Smointer<T> &aSmointer) const
+	{
+		return (gobj == aSmointer.gobj);
+	}
 
 /***************************************************************************************************
  Method:
@@ -279,8 +334,19 @@ public:
  Returns:
 	This method returns TRUE if the calling smointer's gobj is not NULL and FALSE if the calling
 	smointer's gobj is NULL.
+
+ Example:
+	<code>
+	Smointer A;
+	bool valid = A.isValid();
+	</code>
 ***************************************************************************************************/
 
-	inline bool isValid() const;
+	inline bool isValid() const
+	{
+		return (gobj != 0);
+	}
 
 };
+
+#endif
