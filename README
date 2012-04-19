@@ -1,1 +1,43 @@
-This would be an implementation of Conway's Game of Life, an evolving computational state system or cellular automaton. The "game" allows the user to specify the board dimmensions and the initial state of the cells. Then, the game engine takes over and uses simple rules to evolve the game, sometimes creating really cool patterns.
+Summary:
+  An implementation of Conway's Game of Life, an evolving computational state system or cellular
+	automaton. The "game" allows the user to specify the board dimensions and the initial state of
+	the cells. Then, the game engine takes over and uses simple rules to evolve the game, sometimes
+	creating really cool patterns. The game is written in C++ and contains a separation between the
+	game engine and the game logic.
+
+Collaborators:
+	Igor Janjic
+	Matt Bollinger
+
+Github Location:
+	<https://github.com/zergler/Game-of-Life>
+
+Learning Resources:
+	- Game engine creation: <http://www.gamedev.net/>
+		* Specifically Richard Fine's "Enginuity" series on game engine design.
+	- OpenGL documentation: <http://www.opengl.org/>
+	- Miscellaneous: <http://stackoverflow.com/>
+
+Game Structure:
+	The game is structured to be as robust as possible with the actual game implementation separated
+	from the game engine so that the game engine can be reused in the future. Tried to organize the
+	git commits so that they were done in chunks rather than small, individual publications.
+
+Completed Goals:
+	- Memory management system is pretty much completed.
+	- Smart pointers are currently completely written although I might add math operations as well.
+	- Game logic is partly done. We just need to integrate it into the game engine
+
+Goals:
+	- Engine:
+		* Create an error logger system
+		* Create a custom kernel
+		* Create a custom task manager.
+		* Create a settings manager that can easily talk to the QT user interface.
+	- GUI:
+		* Develop a user interface in QT.
+	- Graphics:
+		* Write the graphics for the game in OpenGL.
+
+Hopeless Goals:
+	- Adding sound, complex animations, and other cool stuff.
