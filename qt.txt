@@ -1,0 +1,7 @@
+The following command needs to be run to download all the packages necessary to work with QT.
+sudo apt-get install libqt4-dev qt4-qmake cmake r-base-dev
+
+To make the QT project run the following commands
+qmake -project
+qmake
+make
