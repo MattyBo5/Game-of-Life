@@ -16,13 +16,13 @@ using namespace std;
 // A simple main method to create the window class  and then pop it up on the screen.
 int main(int argc, char *argv[])
 {
-	World A = new World(25, 35, 0, 0, 0);
+	World * A = new World();						// Create the master world.
     Welcome();                                      // Calls Welcome function to print student/assignment info.
     Rules();                                        // Prints Conway's Game Rules.
     QApplication app(argc, argv);                   // Creates the overall windowed application.
     int rows = 25, cols = 35;                       //The number of rows & columns in the game grid.
-    GridWindow widget(NULL,rows,cols, &A);          // Creates the actual window (for the grid).
-    widget.show();                                  // Shows the window on the screen.
+    GridWindow widget(NULL,rows,cols, A);           // Creates the actual window (for the grid).
+    widget.showFullScreen();                        			// Shows the window on the screen.
     return app.exec();                              // Goes into visual loop; starts executing GUI.
 }    
 
@@ -31,8 +31,8 @@ void Welcome()
 {
     cout << endl;
     cout << "-------------------------------------------------------------------------------------------------" << endl;
-    cout << "Name/ID - Gabe Audick #7681539807" << endl;
-    cout << "Class/Assignment - CSCI-102 Disccusion 29915: Homework Assignment #4" << endl;
+    cout << "Igor Janjic, Matthew Bollinger" << endl;
+    cout << "Conway's Game of Life" << endl;
     cout << "-------------------------------------------------------------------------------------------------" << endl << endl;
 }
 

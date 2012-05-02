@@ -33,6 +33,7 @@ class GridWindow : public QWidget
         void handleStart();             // Handler function for clicking the Start button.
         void handlePause();             // Handler function for clicking the Pause button.
         void timerFired();              // Method called whenever timer fires.
+        void handleForward();			// Handler function for clikcing the Forward button.
 
     public:
         GridWindow(QWidget *parent = NULL,int rows=3,int cols=3, World *A = NULL);       // Constructor.

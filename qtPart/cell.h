@@ -16,9 +16,9 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "gobject.h"
+//#include "gobject.h"
 
-class Cell : public Gobject
+class Cell //: public Gobject
 {
 
 private:
@@ -212,7 +212,7 @@ public:
 	void setBreed(species newBreed);
     
     /* Macro that returns the size of the object. */
-    AUTO_SIZE
+    //AUTO_SIZE
 
 };
 

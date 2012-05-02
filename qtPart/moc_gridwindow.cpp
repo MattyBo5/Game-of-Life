@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'gridwindow.h'
 **
-** Created: Mon Apr 30 23:45:23 2012
+** Created: Wed May 2 11:49:17 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_GridWindow[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,13 +35,14 @@ static const uint qt_meta_data_GridWindow[] = {
       26,   11,   11,   11, 0x0a,
       40,   11,   11,   11, 0x0a,
       54,   11,   11,   11, 0x0a,
+      67,   11,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_GridWindow[] = {
     "GridWindow\0\0handleClear()\0handleStart()\0"
-    "handlePause()\0timerFired()\0"
+    "handlePause()\0timerFired()\0handleForward()\0"
 };
 
 const QMetaObject GridWindow::staticMetaObject = {
@@ -77,9 +78,10 @@ int GridWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: handleStart(); break;
         case 2: handlePause(); break;
         case 3: timerFired(); break;
+        case 4: handleForward(); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

@@ -12,16 +12,16 @@
 
 #include "world.h"
 
-string World::allocFail() const
+/*string World::allocFail() const
 {
 	return "Error... Dynamic memory allocation failed.\n";
-}
+}*/
 
 Cell* World::find(int row, int col)
 {
 	if((row < 0) || (col > cols))
 		return 0;
-	return &grid[row][col];
+	return grid[row][col];
 }
 
 Cell* World::findNeighbor(int row, int col, int index)
@@ -102,88 +102,20 @@ bool World::checkRule3(const bool health, const int numLiving) const
 
 World::World()
 {
-	try
+	rows = 25;
+	cols = 35;
+	size = rows * cols;
+	turn = 0;
+	setRule1(0);
+	setRule2(0);
+	setRule3(0);
+		
+	for(int i = 0; i < rows; i++)
 	{
-		rows = 100;
-		cols = 100;
-		size = rows * cols;
-		turn = 0;
-		setRule1(0);
-		setRule2(0);
-		setRule3(0);
-		// Dynamically allocate the grid
-		grid = new Cell*[cols];
-		if(grid == 0)
-			throw AllocFailException;
-		for(int i = 0; i < cols; i++)
+		for (int j = 0; j < cols; j++)
 		{
-			grid[i] = new Cell[rows];
-			if(grid[i] == 0)
-				throw AllocFailException;
+			grid[i][j] = new Cell();
 		}
-	}
-	catch(int e)
-	{
-		if(e == AllocFailException)
-			cerr << allocFail();
-	}
-}
-
-World::World(int aSize, const int rule1, const int rule2, const int rule3)
-{
-	try
-	{
-		rows = aSize / 2;
-		cols = aSize / 2;
-		size = rows * cols;
-		turn = 0;
-		setRule1(rule1);
-		setRule2(rule2);
-		setRule3(rule3);
-		// Dynamically allocate the grid
-		grid = new Cell*[cols];
-		if(grid == 0)
-			throw AllocFailException;
-		for(int i = 0; i < cols; i++)
-		{
-			grid[i] = new Cell[rows];
-			if(grid[i] == 0)
-				throw AllocFailException;
-		}
-	}
-	catch(int e)
-	{
-		if(e == AllocFailException)
-			cerr << allocFail();
-	}
-}
-
-World::World(int numRows, int numCols, const int rule1, const int rule2, const int rule3)
-{
-	try
-	{
-		rows = numRows;
-		cols = numCols;
-		size = rows * cols;
-		turn = 0;
-		setRule1(rule1);
-		setRule2(rule2);
-		setRule3(rule3);
-		// Dynamically allocate the grid
-		grid = new Cell*[cols];
-		if(grid == 0)
-			throw AllocFailException;
-		for(int i = 0; i < cols; i++)
-		{
-			grid[i] = new Cell[rows];
-			if(grid[i] == 0)
-				throw AllocFailException;
-		}
-	}
-	catch(int e)
-	{
-		if(e == 0)
-			cerr << allocFail();
 	}
 }
 
@@ -250,7 +182,7 @@ bool World::isHealthy(const int row, const int col)
 	Cell* cell = find(row, col);
 	if(cell == 0)
 	{
-		throw NullPointerException;
+		//throw NullPointerException;
 		return false;
 	}
 	return cell->isHealthy();
@@ -259,9 +191,9 @@ bool World::isHealthy(const int row, const int col)
 void World::setHealth(const int row, const int col, const bool newHealth)
 {
 	Cell* cell = find(row, col);
-	if(cell == 0)
-		throw NullPointerException;
-	else
+	//if(cell == 0)
+	//	throw NullPointerException;
+	//else
 		cell->setHealth(newHealth);
 }
 

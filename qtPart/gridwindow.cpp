@@ -48,7 +48,7 @@ QGridLayout* GridWindow::setupGrid()
 {
     QGridLayout *grid = new QGridLayout();      // Creates grid layout.
 
-    grid->setHorizontalSpacing(0);              // No empty spaces. Cells should be contiguous.
+    grid->setHorizontalSpacing(0);              // Cells should be side by side.
     grid->setVerticalSpacing(0);
     grid->setSpacing(0);
     grid->setAlignment(Qt::AlignHCenter);
@@ -70,7 +70,7 @@ QGridLayout* GridWindow::setupGrid()
     return grid;                                    // Returns grid.
 }
 
-// Builds footer section of the GUI.  
+// Builds the footer section of the GUI that holds all of the buttons.
 QHBoxLayout* GridWindow::setupButtonRow()
 {
     QHBoxLayout *buttonRow = new QHBoxLayout();     // Creates horizontal box for buttons.
@@ -99,7 +99,7 @@ QHBoxLayout* GridWindow::setupButtonRow()
     quitButton->setFixedSize(100,25); 
     connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));     
     buttonRow->addWidget(quitButton);
-
+    
     return buttonRow;               // Returns bottom of layout.
 }
 
@@ -115,7 +115,7 @@ void GridWindow::handleClear()
         {
             GridCell *cell = cells[row][col];                   // Grab the current cell & set its value to dead.
             cell->setType(DEAD);
-            master->setHealth(row, col, FALSE);
+            //master->setHealth(row, col, FALSE);
         }
     }
 }
@@ -158,50 +158,4 @@ void GridWindow::timerFired()
 			cells[i][j]->updateCell();
 		}
 	}
-
-	/*
-    //Store flags that represent whether the new grid cells will be live or not
-	vector< vector<bool> > is_live(cells.size());
-	for(int m=0; m < static_cast<int>(cells.size()); m++)
-	{
-    	is_live.at(m).resize(cells.at(m).size());
-    	for(int n=0; n < static_cast<int>(cells.at(m).size()); n++)
-    	{
-        	//count neighbors
-        	unsigned int neighbors = 0;
-        	for(int i=-1; i<=1; i++)
-        	{
-            	for(int j=-1; j<=1; j++)
-            	{
-            		if (((m + i) >= 0 || (n + j) >= 0) || 
-            			(((m + i) < static_cast<int>(cells.size())) 
-            				|| (n + j) < static_cast<int>(cells.at(m).size())))
-            		{
-            			neighbors += static_cast<int>(
-                    	cells[m+i][n+j]->getType() == LIVE);
-            		}
-       		    }
-        	}
-        	//we counted the current cell when counting the neighbors so
-        	//subtract it back off if needed.
-        	neighbors -= static_cast<int>(cells[m][n]->getType() == LIVE);
-
-	        //Set the type to the original value
-	        is_live[m][n] = cells[m][n]->getType() == LIVE;
-
-	        //change it based on the neighbor count.
-	        //Some of your logic around here seemed repetitive so I 
-	        //did it differently.  You may want to change it back 
-	        //if you had a specific purpose for the way you did it
-	        is_live[m][n] = (is_live[m][n] && neighbors <= 3) || 
-                        (!is_live[m][n] && neighbors == 3);
-		}
-	}
-
-	//Set the cell types based on the is_live flags.
-	for(int m=0; m < static_cast<int>(cells.size()); m++)
-	{
-    	for(int n=0; n < static_cast<int>(cells.at(m).size()); n++)
-    	    cells[m][n]->setType(is_live[m][n] ? LIVE : DEAD);
-	}*/
 }

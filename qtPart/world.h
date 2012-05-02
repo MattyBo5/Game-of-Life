@@ -16,8 +16,8 @@
 #include <iostream>
 #include <string>
 #include "cell.h"
-#include "gobject.h"
-#include "error.h"
+//#include "gobject.h"
+//#include "error.h"
 using std::cerr;
 using std::string;
 
@@ -32,14 +32,14 @@ using std::string;
 	Depends on Cell class.
 ***************************************************************************************************/
 
-class World : public Gobject, public Error
+class World /*: public Gobject, public Error*/
 {
 
 private:
 
     /* The grid of the game. The grid is a 2x2 dynamically allocated matrix whose elements are
     pointers to dynamically allocated instances of cells. */
-    Cell** grid;
+    Cell* grid[25][35];
     
 	/* The number of rows of the grid. */
 	int rows;

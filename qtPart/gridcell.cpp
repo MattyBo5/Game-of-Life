@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "gridcell.h"
-//#include "utility.h"
 
 using namespace std;
 
@@ -58,6 +57,7 @@ void GridCell::setType(CellType type)
         	master->setHealth(row, col, TRUE);
             break;
     }
+
     redrawCell();
 }
 
