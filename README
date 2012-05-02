@@ -6,12 +6,25 @@ Summary:
 	game engine and the game logic.
 
 Collaborators:
-	Igor Janjic
-	Matt Bollinger
+	Igor Janjic - Developed all of the game logic as well as experimental functionality.
+	Matt Bollinger - Developed the GUI and integrated the logic into it.
 
 Github Location:
 	<https://github.com/zergler/Game-of-Life>
 
+To run:
+	Enter the following commands to download the necessary packages needed to run this application:
+	sudo apt-get install libqt4-dev qt4-qmake cmake r-base-dev
+
+	To compile enter the following commands:
+	qmake -project
+	qmake
+	make
+
+	An executable will be created and all you need to do is run:
+	Game-of-Life
+
+	It also may be possible to move into the directory qtPart and simple run the executable qtPart.
 Learning Resources:
 	- Game engine creation: <http://www.gamedev.net/>
 		* Specifically Richard Fine's "Enginuity" series on game engine design.
