@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QApplication>
 #include "gridcell.h"
+#include "world.h"
 
 /*
 class GridWindow:
@@ -23,6 +24,9 @@ class GridWindow : public QWidget
         std::vector<std::vector<GridCell*> > cells;     // A 2D vector containing pointers to all the cells in the grid.
         QLabel *title;                                  // A pointer to the Title text on the window.
         QTimer *timer;                                  // Creates timer object.
+        int rows;
+        int cols;
+        World *master;
 
     public slots:
         void handleClear();             // Handler function for clicking the Clear button.
@@ -31,14 +35,14 @@ class GridWindow : public QWidget
         void timerFired();              // Method called whenever timer fires.
 
     public:
-        GridWindow(QWidget *parent = NULL,int rows=3,int cols=3);       // Constructor.
+        GridWindow(QWidget *parent = NULL,int rows=3,int cols=3, World *A = NULL);       // Constructor.
         virtual ~GridWindow();                                          // Destructor.
         std::vector<std::vector<GridCell*> >& getCells();               // Accessor for the array of grid cells.
 
     private:
         QHBoxLayout* setupHeader();                     // Helper function to construct the GUI header.
-        QGridLayout* setupGrid(int rows,int cols);      // Helper function to constructor the GUI's grid.
-        QHBoxLayout* setupButtonRow();                  // Helper function to setup the row of buttons at the bottom.
+        QGridLayout* setupGrid();      // Helper function to constructor the GUI's grid.
+        QHBoxLayout* setupButtonRow();     // Helper function to setup the row of buttons at the bottom.
 };
 
 #endif

@@ -6,9 +6,12 @@
 using namespace std;
 
 // Constructor: Creates a grid cell.
-GridCell::GridCell(QWidget *parent)
+GridCell::GridCell(QWidget *parent, World *world, const int x, const int y)
 : QFrame(parent)
 { 
+	master = world;
+	row = x;
+	col = y;
     this->type = DEAD;              // Default: Cell is DEAD (white).
     setFrameStyle(QFrame::Box);     // Set the frame style.  This is what gives each box its black border.
 
@@ -45,6 +48,16 @@ CellType GridCell::getType() const
 void GridCell::setType(CellType type)
 {
     this->type = type;
+    switch(this->type)
+    {
+        default:
+        case DEAD:
+        	master->setHealth(row, col, FALSE);
+        	break;
+        case LIVE:
+        	master->setHealth(row, col, TRUE);
+            break;
+    }
     redrawCell();
 }
 
@@ -52,9 +65,13 @@ void GridCell::setType(CellType type)
 void GridCell::handleClick()
 {                                   // When clicked on...
   if(this->type == DEAD)            // If type is DEAD (white), change to LIVE (black).
-    type = LIVE;
-  else 
+  {
+  	type = LIVE;
+  }
+  else
+  { 
     type = DEAD;                    // If type is LIVE (black), change to DEAD (white).
+  }
 
   setType(type);                    // Sets new type (color). setType Calls redrawCell() to recolor.
 }
@@ -80,4 +97,18 @@ void GridCell::redrawCell()
     this->button->setPalette(QPalette(gc,gc));          //Force the button in the cell to be the proper color.
     this->button->setAutoFillBackground(true);
     this->button->setFlat(true);                        //Force QT to NOT draw the borders on the button
+}
+
+void GridCell::updateCell()
+{
+	if (master->isHealthy(row, col))
+	{
+		this->type = LIVE;
+	}
+	else
+	{
+		this->type = DEAD;
+	}
+	
+	redrawCell();
 }

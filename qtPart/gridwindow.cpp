@@ -4,12 +4,15 @@
 using namespace std;
 
 // Constructor for window. It constructs the three portions of the GUI and lays them out vertically.
-GridWindow::GridWindow(QWidget *parent,int rows,int cols)
+GridWindow::GridWindow(QWidget *parent,int row,int col, World *world)
 : QWidget(parent)
 {
+	master = world;
+	rows = row;
+	cols = col;
     QHBoxLayout *header = setupHeader();            // Setup the title at the top.
-    QGridLayout *grid = setupGrid(rows,cols);       // Setup the grid of colored cells in the middle.
-    QHBoxLayout *buttonRow = setupButtonRow();      // Setup the row of buttons across the bottom.
+    QGridLayout *grid = setupGrid();	// Setup the grid of colored cells in the middle.
+    QHBoxLayout *buttonRow = setupButtonRow();    // Setup the row of buttons across the bottom.
     QVBoxLayout *layout = new QVBoxLayout();        // Put it all onto one box.
     layout->addLayout(header);
     layout->addLayout(grid);
@@ -39,7 +42,9 @@ QHBoxLayout* GridWindow::setupHeader()
 }
 
 // Builds the grid of cells.  This method populates the grid's 2D array of GridCells with MxN cells.
-QGridLayout* GridWindow::setupGrid(int rows,int cols)
+// We pass a pointer to the master world in each cell so that the cells can access what state
+// they should be.
+QGridLayout* GridWindow::setupGrid()
 {
     QGridLayout *grid = new QGridLayout();      // Creates grid layout.
 
@@ -54,7 +59,7 @@ QGridLayout* GridWindow::setupGrid(int rows,int cols)
         cells.push_back(row);
         for(int j=0; j < cols; j++)
         {
-            GridCell *cell = new GridCell();        // Creates and adds new cell to row.
+            GridCell *cell = new GridCell(NULL, master, i, j);        // Creates and adds new cell to row.
             cells.at(i).push_back(cell);
 
             grid->addWidget(cell,i,j);              // Adds to cell to grid layout. Column expands vertically.
@@ -110,6 +115,7 @@ void GridWindow::handleClear()
         {
             GridCell *cell = cells[row][col];                   // Grab the current cell & set its value to dead.
             cell->setType(DEAD);
+            master->setHealth(row, col, FALSE);
         }
     }
 }
@@ -143,6 +149,17 @@ std::vector<std::vector<GridCell*> >& GridWindow::getCells()
 
 void GridWindow::timerFired()
 {
+	master->play(1);				// Move the master world forward one turn.
+	// Update the gridWindow to match the master world.
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cells[i][j]->updateCell();
+		}
+	}
+
+	/*
     //Store flags that represent whether the new grid cells will be live or not
 	vector< vector<bool> > is_live(cells.size());
 	for(int m=0; m < static_cast<int>(cells.size()); m++)
@@ -186,5 +203,5 @@ void GridWindow::timerFired()
 	{
     	for(int n=0; n < static_cast<int>(cells.at(m).size()); n++)
     	    cells[m][n]->setType(is_live[m][n] ? LIVE : DEAD);
-	}
+	}*/
 }

@@ -16,11 +16,12 @@ using namespace std;
 // A simple main method to create the window class  and then pop it up on the screen.
 int main(int argc, char *argv[])
 {
+	World A = new World(25, 35, 0, 0, 0);
     Welcome();                                      // Calls Welcome function to print student/assignment info.
     Rules();                                        // Prints Conway's Game Rules.
     QApplication app(argc, argv);                   // Creates the overall windowed application.
     int rows = 25, cols = 35;                       //The number of rows & columns in the game grid.
-    GridWindow widget(NULL,rows,cols);              // Creates the actual window (for the grid).
+    GridWindow widget(NULL,rows,cols, &A);          // Creates the actual window (for the grid).
     widget.show();                                  // Shows the window on the screen.
     return app.exec();                              // Goes into visual loop; starts executing GUI.
 }    
